@@ -8,7 +8,18 @@ export interface AppApiError {
   isNetwork?: boolean;
 }
 
+function isAppApiError(e: unknown): e is AppApiError {
+  return (
+    typeof e === 'object' &&
+    e !== null &&
+    typeof (e as AppApiError).code === 'string' &&
+    typeof (e as AppApiError).message === 'string' &&
+    !axios.isAxiosError(e)
+  );
+}
+
 export function normalizeError(err: unknown): AppApiError {
+  if (isAppApiError(err)) return err; // already normalized by the interceptor
   if (axios.isAxiosError(err)) {
     if (err.code === 'ECONNABORTED' || err.code === 'ETIMEDOUT') {
       return { code: 'TIMEOUT', message: 'The server is waking up. Please try again in a moment.', isNetwork: true };
