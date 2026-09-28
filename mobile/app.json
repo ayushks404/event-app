@@ -1,0 +1,23 @@
+{
+  "expo": {
+    "name": "EventHub",
+    "slug": "event-booking-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "eventbooking",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "package": "com.eventbooking.app"
+    },
+    "web": {
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-secure-store"
+    ]
+  }
+}
