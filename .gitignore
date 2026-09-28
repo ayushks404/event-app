@@ -1,0 +1,17 @@
+node_modules/
+.env
+.env.*
+!.env.example
+dist/
+.expo/
+web-build/
+*.keystore
+*.jks
+*.apk
+*.aab
+android/
+ios/
+coverage/
+.DS_Store
+.agent
+*.md
