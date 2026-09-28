@@ -51,7 +51,9 @@ export async function createEvent(opts: {
   const category = opts.category ?? 'Technology';
   const date = opts.date ?? inDays(7);
   const startTime = opts.startTime ?? '18:00';
-  const endTime = opts.endTime ?? '21:00';
+  const startHour = Number(startTime.split(':')[0]);
+  const defaultEnd = startHour < 23 ? `${String(startHour + 1).padStart(2, '0')}:${startTime.split(':')[1] || '00'}` : '23:59';
+  const endTime = opts.endTime ?? defaultEnd;
   const venue = opts.venue ?? 'Test Convention Center';
   const address = opts.address ?? '123 Test Street, City';
   const ticketPrice = opts.ticketPrice ?? 500;

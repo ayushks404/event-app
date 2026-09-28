@@ -13,3 +13,18 @@ export const getEventDetailHandler: RequestHandler = asyncHandler(async (req, re
   const detail = await eventsService.detail(req.valid.params.id, userId);
   res.json({ success: true, data: detail });
 });
+
+export const createEventHandler: RequestHandler = asyncHandler(async (req, res) => {
+  const detail = await eventsService.create(req.user!.id, req.valid.body);
+  res.status(201).json({ success: true, data: detail });
+});
+
+export const updateEventHandler: RequestHandler = asyncHandler(async (req, res) => {
+  const detail = await eventsService.update(req.user!.id, req.valid.params.id, req.valid.body);
+  res.json({ success: true, data: detail });
+});
+
+export const deleteEventHandler: RequestHandler = asyncHandler(async (req, res) => {
+  const result = await eventsService.delete(req.user!.id, req.valid.params.id);
+  res.json({ success: true, data: result });
+});

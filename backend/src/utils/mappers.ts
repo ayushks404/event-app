@@ -19,6 +19,7 @@ export interface UserRow {
   name: string;
   email: string;
   mobile: string;
+  password?: string;
   role: Role;
   created_at: Date | string;
 }
