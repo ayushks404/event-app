@@ -8,6 +8,7 @@ interface PrimaryButtonProps {
   disabled?: boolean;
   variant?: 'primary' | 'outline' | 'danger';
   icon?: React.ReactNode;
+  className?: string;
 }
 
 export const PrimaryButton: React.FC<PrimaryButtonProps> = ({
@@ -17,6 +18,7 @@ export const PrimaryButton: React.FC<PrimaryButtonProps> = ({
   disabled = false,
   variant = 'primary',
   icon,
+  className = '',
 }) => {
   const isInteractive = !loading && !disabled;
 
@@ -41,7 +43,7 @@ export const PrimaryButton: React.FC<PrimaryButtonProps> = ({
       onPress={onPress}
       disabled={!isInteractive}
       activeOpacity={0.8}
-      className={`h-12 min-h-[44px] px-6 rounded-btn flex-row items-center justify-center ${bgClass}`}
+      className={`h-12 min-h-[44px] px-6 rounded-btn flex-row items-center justify-center ${bgClass} ${className}`}
     >
       {loading ? (
         <ActivityIndicator color={variant === 'outline' ? '#4F46E5' : '#FFFFFF'} />

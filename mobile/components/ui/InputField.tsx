@@ -5,7 +5,8 @@ import { Ionicons } from '@expo/vector-icons';
 interface InputFieldProps extends TextInputProps {
   label?: string;
   error?: string;
-  leftIcon?: React.ReactNode;
+  leftIcon?: string | React.ReactNode;
+  disabled?: boolean;
 }
 
 export const InputField: React.FC<InputFieldProps> = ({
@@ -15,6 +16,7 @@ export const InputField: React.FC<InputFieldProps> = ({
   error,
   secureTextEntry,
   leftIcon,
+  disabled = false,
   keyboardType = 'default',
   ...props
 }) => {
@@ -22,20 +24,33 @@ export const InputField: React.FC<InputFieldProps> = ({
 
   return (
     <View className="mb-4">
-      {label ? <Text className="font-semibold text-sm text-ink mb-1.5">{label}</Text> : null}
+      {label ? (
+        <Text className="font-semibold text-xs text-slate-400 uppercase tracking-wider mb-1.5">
+          {label}
+        </Text>
+      ) : null}
       <View
-        className={`flex-row items-center bg-white border ${
-          error ? 'border-danger' : 'border-line'
-        } rounded-btn px-3 h-12 min-h-[44px]`}
+        className={`flex-row items-center bg-slate-900 border ${
+          error ? 'border-rose-500' : 'border-slate-800'
+        } rounded-2xl px-3.5 h-12 ${disabled ? 'opacity-50 bg-slate-950' : ''}`}
       >
-        {leftIcon ? <View className="mr-2.5">{leftIcon}</View> : null}
+        {leftIcon ? (
+          <View className="mr-2.5">
+            {typeof leftIcon === 'string' ? (
+              <Ionicons name={leftIcon as any} size={18} color="#64748b" />
+            ) : (
+              leftIcon
+            )}
+          </View>
+        ) : null}
         <TextInput
           value={value}
           onChangeText={onChangeText}
           secureTextEntry={isSecure}
+          editable={!disabled}
           keyboardType={keyboardType}
-          placeholderTextColor="#9CA3AF"
-          className="flex-1 text-ink text-base h-full"
+          placeholderTextColor="#64748b"
+          className="flex-1 text-slate-100 text-sm h-full"
           {...props}
         />
         {secureTextEntry ? (
@@ -44,11 +59,11 @@ export const InputField: React.FC<InputFieldProps> = ({
             className="p-1 min-h-[44px] min-w-[44px] items-center justify-center"
             accessibilityLabel={isSecure ? 'Show password' : 'Hide password'}
           >
-            <Ionicons name={isSecure ? 'eye-outline' : 'eye-off-outline'} size={20} color="#6B7280" />
+            <Ionicons name={isSecure ? 'eye-outline' : 'eye-off-outline'} size={20} color="#64748b" />
           </TouchableOpacity>
         ) : null}
       </View>
-      {error ? <Text className="text-danger text-xs mt-1 font-normal">{error}</Text> : null}
+      {error ? <Text className="text-rose-400 text-xs mt-1 font-medium">{error}</Text> : null}
     </View>
   );
 };

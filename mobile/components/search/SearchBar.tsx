@@ -5,7 +5,8 @@ import { Ionicons } from '@expo/vector-icons';
 interface SearchBarProps {
   value: string;
   onChangeText: (text: string) => void;
-  onClear: () => void;
+  onClear?: () => void;
+  onFilterPress?: () => void;
   placeholder?: string;
 }
 
@@ -13,25 +14,34 @@ export const SearchBar: React.FC<SearchBarProps> = ({
   value,
   onChangeText,
   onClear,
+  onFilterPress,
   placeholder = 'Search events, venues, categories...',
 }) => {
   return (
-    <View className="flex-row items-center bg-white border border-line rounded-btn px-3.5 h-12 min-h-[44px] shadow-sm flex-1">
-      <Ionicons name="search" size={20} color="#6B7280" className="mr-2" />
+    <View className="flex-row items-center bg-slate-900 border border-slate-800 rounded-2xl px-3.5 h-12 flex-1 shadow-sm">
+      <Ionicons name="search" size={20} color="#94a3b8" />
       <TextInput
         value={value}
         onChangeText={onChangeText}
         placeholder={placeholder}
-        placeholderTextColor="#9CA3AF"
-        className="flex-1 text-ink text-base h-full ml-2"
+        placeholderTextColor="#64748b"
+        className="flex-1 text-slate-100 text-sm h-full ml-2"
       />
-      {value ? (
+      {value && onClear ? (
         <TouchableOpacity
           onPress={onClear}
           className="p-1 min-h-[44px] min-w-[44px] items-center justify-center"
           accessibilityLabel="Clear search"
         >
-          <Ionicons name="close-circle" size={18} color="#9CA3AF" />
+          <Ionicons name="close-circle" size={18} color="#64748b" />
+        </TouchableOpacity>
+      ) : null}
+      {onFilterPress ? (
+        <TouchableOpacity
+          onPress={onFilterPress}
+          className="p-1 min-h-[44px] min-w-[44px] items-center justify-center border-l border-slate-800 ml-1 pl-2"
+        >
+          <Ionicons name="options-outline" size={18} color="#818cf8" />
         </TouchableOpacity>
       ) : null}
     </View>
